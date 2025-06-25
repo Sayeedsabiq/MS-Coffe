@@ -7,6 +7,101 @@
   <link rel="stylesheet" href="style.css"/>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
  rel="stylesheet" />
+ <style>
+    /* Tambahkan CSS ini ke file style.css Anda atau letakkan di sini di dalam tag <style> */
+    body {
+      font-family: 'Poppins', sans-serif;
+      transition: background-color .5s;
+    }
+
+    /* === PERUBAHAN CSS NAVBAR DIMULAI DI SINI === */
+    .navbar {
+      display: flex;
+      justify-content: space-between; /* Mendorong logo ke kiri dan item lain ke kanan */
+      align-items: center;
+      padding: 1rem 0;
+    }
+
+    .navbar .logo {
+      /* Hapus style yang membuat logo di tengah */
+      flex-grow: 0;
+      text-align: left;
+    }
+    
+    .navbar .nav-links {
+        margin: 0;
+        padding: 0;
+    }
+    /* === PERUBAHAN CSS NAVBAR SELESAI === */
+
+
+    /* Style untuk Sidebar */
+    .sidebar {
+      height: 100%;
+      width: 0;
+      position: fixed;
+      z-index: 10;
+      top: 0;
+      left: 0;
+      background-color: #111;
+      overflow-x: hidden;
+      transition: 0.5s;
+      padding-top: 60px;
+    }
+
+    .sidebar a {
+      padding: 10px 15px 10px 32px;
+      text-decoration: none;
+      font-size: 20px;
+      color: #818181;
+      display: block;
+      transition: 0.3s;
+    }
+
+    .sidebar a:hover {
+      color: #f1f1f1;
+    }
+
+    .sidebar .closebtn {
+      position: absolute;
+      top: 0;
+      right: 25px;
+      font-size: 36px;
+      margin-left: 50px;
+    }
+
+    .openbtn {
+      font-size: 24px; /* Sedikit diperbesar agar lebih mudah diklik */
+      cursor: pointer;
+      background-color: transparent;
+      color: #333;
+      padding: 10px;
+      border: none;
+    }
+
+    .openbtn:hover {
+      background-color: #f1f1f1;
+    }
+
+    #main {
+      transition: margin-left .5s;
+    }
+
+    /* Pada layar kecil, sembunyikan link navigasi utama dan tombol pesan */
+    @media screen and (max-width: 768px) {
+      .navbar .nav-links,
+      .navbar .order-btn {
+        display: none;
+      }
+    }
+    
+    /* Pada layar besar, sembunyikan tombol hamburger */
+    @media screen and (min-width: 769px) {
+      .openbtn {
+        display: none;
+      }
+    }
+  </style>
 </head>
 <body>
 
@@ -72,7 +167,7 @@
 
   <section id="order" class="order container">
     <h2 class="section-title">Pesan Kopi Anda</h2>
-    <form class="order-form" action="#" method="POST" onsubmit="return validateForm()">
+    <form class="order-form" id="order-form">
       <label for="name">Nama Lengkap</label>
       <input type="text" id="name" name="name" placeholder="Masukkan nama Anda" required />
 
@@ -91,7 +186,7 @@
       <label for="quantity">Jumlah</label>
       <input type="number" id="quantity" name="quantity" min="1" value="1" required />
 
-      <button type="submit" class="btn btn-primary">Kirim Pesanan</button>
+      <button class="btn btn-primary order-btn" id="order-now-btn">Pesan Sekarang</button>
     </form>
   </section>
 
@@ -113,7 +208,10 @@
     </div>
   </footer>
 
-  <script>
+    <script>
+    // --- Kode JavaScript yang sudah ada (Validasi Form) ---
+    // Fungsi validateForm ini tidak lagi dipanggil di onsubmit form,
+    // tapi logikanya tetap bisa digunakan di event listener submit form
     function validateForm() {
       const name = document.getElementById('name').value.trim();
       const email = document.getElementById('email').value.trim();
@@ -124,10 +222,92 @@
         alert('Mohon lengkapi semua data dengan benar.');
         return false;
       }
-      alert('Terima kasih, pesanan Anda telah diterima!');
-      return true;
+      return true; // Tidak lagi menampilkan alert "Terima kasih", karena akan diganti dengan pesan WA
     }
+
+    // --- Kode JavaScript untuk Sidebar (off-canvas) ---
+    // Pastikan ID 'mySidebar' ada di HTML Anda
+    function openNav() {
+      document.getElementById("mySidebar").style.width = "250px";
+      document.body.style.overflow = 'hidden'; // Nonaktifkan scroll body
+    }
+
+    function closeNav() {
+      document.getElementById("mySidebar").style.width = "0";
+      document.body.style.overflow = 'auto'; // Aktifkan kembali scroll body
+    }
+
+    const whatsappPhoneNumber = '628111236333'; //  nomor WhatsApp 
+
+    // Ambil elemen-elemen yang dibutuhkan
+    const orderNowBtn = document.getElementById('order-now-btn'); // Tombol di navbar utama
+    const sidebarOrderBtn = document.getElementById('sidebar-order-btn'); // Tombol di sidebar
+    const orderForm = document.getElementById('order-form'); // Formulir pemesanan
+
+    // Event listener untuk tombol "Pesan Sekarang" di navbar utama
+    if (orderNowBtn) {
+      orderNowBtn.addEventListener('click', function() {
+        // Arahkan ke bagian order form (opsional, bisa juga langsung ke WA dengan pesan default)
+        document.getElementById('order').scrollIntoView({behavior:'smooth'});
+        // Atau jika ingin langsung ke WA dengan pesan default:
+        // const defaultMessage = "Halo MS Coffee, saya ingin bertanya tentang menu Anda.";
+        // const whatsappURL = `https://wa.me/${whatsappPhoneNumber}?text=${encodeURIComponent(defaultMessage)}`;
+        // window.open(whatsappURL, '_blank');
+      });
+    }
+
+    // Event listener untuk tombol "Pesan Sekarang (WA)" di sidebar
+    if (sidebarOrderBtn) {
+      sidebarOrderBtn.addEventListener('click', function() {
+        const defaultMessage = "Halo MS Coffee, saya ingin bertanya tentang menu Anda dari menu samping.";
+        const whatsappURL = `https://wa.me/${whatsappPhoneNumber}?text=${encodeURIComponent(defaultMessage)}`;
+        window.open(whatsappURL, '_blank');
+        closeNav(); // Tutup sidebar setelah membuka WhatsApp
+      });
+    }
+
+    // Event listener untuk pengiriman formulir pemesanan
+    if (orderForm) {
+      orderForm.addEventListener('submit', function(event) {
+        event.preventDefault(); // Mencegah form untuk refresh halaman
+
+        const name = document.getElementById('name').value.trim();
+        const email = document.getElementById('email').value.trim();
+        const menu = document.getElementById('menu-select').value;
+        const quantity = document.getElementById('quantity').value;
+
+        // Validasi sederhana
+        if (!name || !email || !menu || quantity < 1) {
+          alert('Mohon lengkapi semua data dengan benar.');
+          return; // Hentikan eksekusi jika validasi gagal
+        }
+
+        // Buat pesan WhatsApp
+        const message = `Halo MS Coffee, saya ingin memesan:\n\n` +
+                        `Nama: ${name}\n` +
+                        `Email: ${email}\n` +
+                        `Menu: ${menu}\n` +
+                        `Jumlah: ${quantity}\n\n` +
+                        `Mohon konfirmasi pesanan saya. Terima kasih!`;
+
+        // Buat URL WhatsApp
+        const whatsappURL = `https://wa.me/${whatsappPhoneNumber}?text=${encodeURIComponent(message)}`;
+
+        // Buka tab baru dengan WhatsApp
+        window.open(whatsappURL, '_blank');
+
+        // Beri tahu pengguna bahwa pesanan telah dikirim
+        alert('Pesanan Anda akan segera dikirimkan melalui WhatsApp. Mohon periksa chat Anda!');
+
+        // Opsional: Reset formulir setelah pengiriman
+        orderForm.reset();
+      });
+    }
+
+    // --- JavaScript untuk WhatsApp SELESAI DI SINI ---
+
   </script>
+
 
   
 
