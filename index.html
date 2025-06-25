@@ -7,6 +7,7 @@
   <link rel="stylesheet" href="style.css"/>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
  rel="stylesheet" />
+ <script src="https://unpkg.com/feather-icons"></script>
  <style>
     /* Tambahkan CSS ini ke file style.css Anda atau letakkan di sini di dalam tag <style> */
     body {
@@ -105,21 +106,26 @@
 </head>
 <body>
 
-  <header>
-    <nav class="navbar container">
-     <h1 class="logo">MS COFFEE</h1>
-      <ul class="nav-links">
-        <li><a href="#hero">Beranda</a></li>
-        <li><a href="#menu">Menu</a></li>
-        <li><a href="#about">Tentang Kami</a></li>
-        <li><a href="#order">Pesan</a></li>
-        <li><a href="#contact">Kontak</a></li>
-      </ul>
-      <button class="btn btn-primary order-btn" onclick="document.getElementById('order').scrollIntoView({behavior:'smooth'})">Pesan Sekarang</button>
-    </nav>
-  </header>
+ <!--navbar start-->
+  <nav class="navbar">
+        <a href="#" class="navbar-logo">MS<span>COFFEE</span></a>
 
-  <section id="hero" class="hero">
+        <div class="navbar-nav">
+            <a href="#home">Home</a>
+            <a href="#about">Tentang kami</a>
+            <a href="#menu">Menu</a>
+            <a href="#contact">Kontak</a>
+        </div>
+        <div style="padding-right: 3rem;" class="navbar-extra">
+           <a href="#" id="search">  <i data-feather="search"></i></a>
+           <!-- <input type="text" id="searchBox" placeholder="Cari kopi..." > -->
+           <a style="margin-right: 1rem;" href="#menu" id="shopping-cart">  <i data-feather="shopping-cart"></i></a>
+           <a href="#" id="hamburger-menu"><i data-feather="menu"></i></a>
+
+        </div>
+    </nav>
+ <!--navbar end-->
+  <section id="hero" class="hero" style="padding-top: 7rem;">
     <div class="hero-content container">
       <h1>'Rasakan Aroma <span>Kopi</span> Terbaik di Setiap Cangkir'</h1>
       <p>Kami menyajikan kopi pilihan dengan suasana nyaman untuk menemani hari Anda.</p>
@@ -128,6 +134,35 @@
     </div>
   </section>
 
+  <section id="menu" class="menu container">
+    <h2 class="section-title">Menu Kopi Spesial</h2>
+    <div class="menu-grid">
+      <article class="menu-item">
+        <img src="./img/fotomenu.jpg" alt="Cheese Salt Coffe Ice" />
+        <h3>Cheese Slat Coffee Ice  </h3>
+        <p>Kopi susu yang dilapisi foam lembut dan creamy yang terbuat dari campuran cream cheese, susu dan kopi.</p>
+        <div class="price">Rp33.000</div>
+      </article>
+      <article class="menu-item">
+        <img src="./img/fotomenu2.jpg" alt="Hot Latte" />
+        <h3>Hot Latte</h3>
+        <p>Perpaduan antara espresso yang strong dan susu steamed yang creamy dan di sajikan dengan art yang sangat cantik.</p>
+        <div class="price">Rp30.000</div>
+      </article>
+      <article class="menu-item">
+        <img src="./img/fotomenu3.jpg" alt="Roti Croissant" />
+        <h3>Roti Croissant</h3>
+        <p>Roti asal prancis dengan bentuk bulan sabit dan tekstur renyah di dalam. Wangi mentega khas, rasanya gurih dan buttery.</p>
+        <div class="price">Rp20.000</div>
+      </article>
+      <article class="menu-item">
+        <img src="./img/fotomenu4.jpg" alt="Hot Matcha" />
+        <h3>Hot Matcha</h3>
+        <p>Matcha Hangat dengan rasa lembut dan sedikit pahit, di padukan susu creamy yang lebih hangat, tenang dan nyaman di setiap tegukan.</p> 
+        <div class="price">Rp28.000</div>
+      </article>
+    </div>
+  </section>
   <section id="menu" class="menu container">
     <h2 class="section-title">Menu Kopi Spesial</h2>
     <div class="menu-grid">
@@ -207,7 +242,7 @@
       <p>&copy; 2025 MS Coffee. Semua hak cipta dilindungi.</p>
     </div>
   </footer>
-
+    <script src="script.js"></script>
     <script>
     // --- Kode JavaScript yang sudah ada (Validasi Form) ---
     // Fungsi validateForm ini tidak lagi dipanggil di onsubmit form,
@@ -307,6 +342,9 @@
     // --- JavaScript untuk WhatsApp SELESAI DI SINI ---
 
   </script>
+  <script>
+        feather.replace();
+    </script>
 
 
   
