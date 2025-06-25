@@ -26,6 +26,14 @@ body {
   margin: 0 auto;
 }
 
+/* hero */
+.hero {
+  background-image: url(/img/fotobarms.jpg);
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
 /* Navbar */
 .navbar {
     display: flex; 
